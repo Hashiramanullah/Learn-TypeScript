@@ -33,7 +33,7 @@
 
 
 // datatypes in ts
-
+// ak hoty ha Implicit type jo yeh ha let x =12 , aur dosry ha explicit jo ka yeh haa let x:number = 90
 // TypeScript mein kaafi saare built-in data types hote hain jo alag-alag tareeqe se data ko handle karne mein madadgar hain. Commonly used data types ye hain:
 
 // 1. Primitive Data Types
@@ -135,18 +135,111 @@
 
 // x = 56;
 // x= 'fdg'
+ 
+// type Protein ={
+//     Name:String,
+// }
 
-type cars = {
-    name:String
-}
+// type Qty = {
+//     aty:Number,
+// }
 
-type Carmodel = {
-    model:Number
-}
+// type allOfProtein = Protein & Qty;
 
-type mixtureofCar = cars & Carmodel;
+// let resp: allOfProtein = {
+//     Name:'chana',
+//     aty:324,
+// }
+// let a = 'je;;j'
 
-let resp:mixtureofCar = {
-    name:"Soanata",
-    model:242
-}
+
+// Nahi, aapka thoda sa concept clear karna zaroori hai. Type aliases sirf type ka naam dene ka shortcut hain, aur ye koi naya variable create nahi karte. Ye sirf types ke liye shortcut naam hain jo readability aur maintainability improve karte hain.
+
+// Type aliases mein aap aik existing type ka naya naam dete hain, taake aap woh naam repeatedly code mein use kar sakain, jese kuch specific types ya complex union types ko alias de kar simplify kiya jata hai.
+
+// TypeScript mein type aliases ka sahi istamal:
+// typescript
+// Copy code
+// type ID = string; // 'string' type ka alias 'ID'
+// let userId: ID = "12345";
+// Yahan ID ek type alias hai jo string type ko represent karta hai. Agar ham kisi variable ko ID type dete hain, to wo actually string hi hai, par hamen code readability mein asaani milti hai.
+
+// Ek aur example - complex types ke liye alias:
+// typescript
+// Copy code
+// type User = {
+//   id: number;
+//   name: string;
+// };
+
+// let user: User = {
+//   id: 1,
+//   name: "Hashir",
+// };
+// Yahan User ek type alias hai jo aik specific object structure ko represent karta hai. Har dafa pura object type likhne ki bajaye, ab hum sirf User ka alias use kar sakte hain.
+
+// Toh jab aap type aliases ki baat karte hain, toh iska matlab sirf ye hai ke aap ne koi existing type ka naya naam diya hai, aur us nayi type ko variables ke liye use kar sakte hain.
+
+
+
+// Type aliases aur interfaces mein kuch similarities hain, lekin ye dono alag purposes ke liye use hote hain aur kuch differences bhi hain. Main dono ka comparison aur kuch key points clear kar deta hoon:
+
+// 1. Type Aliases
+// Type aliases kisi bhi type ko represent kar sakte hain, jaise string, number, array, union types, ya phir complex types jaise objects.
+// Type aliases ko extend nahi kiya ja sakta, lekin unhe union aur intersection types ke saath combine kiya ja sakta hai.
+// Type alias ko ek single line mein kisi bhi type ka naam dene ke liye banaya gaya hai, jo readability aur simplicity ke liye acha hai.
+// Example:
+
+// typescript
+// Copy code
+// type ID = string;  // simple type alias
+// type Status = "active" | "inactive";  // union type alias
+// type User = { id: ID; name: string; age?: number };  // complex object type alias
+// 2. Interfaces
+// Interfaces sirf objects ke structures ko define karte hain.
+// Interfaces mein extends keyword se inheritance ho sakta hai, jo unhe reuse aur composition ke liye behad powerful banata hai.
+// Interfaces mein aap methods aur properties bhi define kar sakte hain, aur agar zaroorat ho to multiple interfaces ko extend kar sakte hain.
+// Interfaces ka use kar ke types ko merge bhi kiya ja sakta hai (declaration merging).
+// Example:
+
+// typescript
+// Copy code
+// interface User {
+//   id: string;
+//   name: string;
+//   age?: number;  // optional property
+// }
+
+// interface Admin extends User {  // User interface ko extend karte hain
+//   role: string;
+// }
+
+// const admin: Admin = {
+//   id: "123",
+//   name: "Hashir",
+//   role: "admin",
+// };
+// Differences Summary:
+// Scope: Type aliases koi bhi type represent kar sakte hain, lekin interfaces sirf objects ke structures ke liye hain.
+// Extensibility: Interfaces ko extend kiya ja sakta hai (inheritance), lekin type aliases mein inheritance directly nahi hota, bas intersection & operator se kiya ja sakta hai.
+// Declaration Merging: Interfaces ko merge kar sakte hain, jab ke type aliases mein ye facility nahi hoti.
+// Aapka Jo Example Tha Us Ka Clarification:
+// Agar aap string ko as a type assign karte hain kisi variable ko, to wo sirf us variable ki type hogi, lekin uska naam nahi.
+
+// Agar aap bar bar string type ko use karna chahte hain aur readable naam dena chahte hain, to type alias bana sakte hain:
+
+// typescript
+// Copy code
+// type Name = string;
+// let userName: Name = "Hashir";
+// Jab ke interface mein aap sirf object ka structure define karte hain:
+
+// typescript
+// Copy code
+// interface User {
+//   name: string;
+//   age: number;
+// }
+// Summary:
+// Type alias ko kisi bhi type ke liye use kar sakte hain aur ye string ya kisi aur type ka shortcut hai.
+// Interface sirf object structure ke liye hota hai, aur extend bhi ho sakta hai.
